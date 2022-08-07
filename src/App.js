@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Game from "./Components/Game";
 
 function App() {
+  let [isVisible, setIsVisible] = useState(false);
+
+  const startClick = () => {
+    setIsVisible(true);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="flex h-screen">
+        <div className="flex flex-col items-center w-2/4">
+          <button
+            className="bg-yellow-400 px-24 py-3 my-4 text-2xl"
+            onClick={startClick}
+          >
+            Start
+          </button>
+          {isVisible && <Game setIsVisible={setIsVisible}/>}
+        </div>
+        <img
+          className="py-24"
+          width="450px"
+          src="https://c.tenor.com/pw9ZsUdsEYgAAAAj/capoo-blue-cat.gif"
+        ></img>
+      </div>
   );
 }
 
