@@ -9,14 +9,14 @@ import {
 export default function Game({setIsVisible}) {
   const [setNumbers, setSetNumbers] = useState(new Set());
   const [getNumbers, setGetNumbers] = useState([]);
-  const [afg, setAfg] = useState({
+  const [results, setResults] = useState({
     count: 1,
     level: 1,
     result: 0,
     click: false,
     isTrue: null,
   });
-  const { count, level, result, click, isTrue } = afg;
+  const { count, level, result, click, isTrue } = results;
 
   for (let i = 0; setNumbers.size < count; i++) {
     setSetNumbers(setNumbers.add(Math.trunc(Math.random() * 12)));
@@ -35,14 +35,14 @@ export default function Game({setIsVisible}) {
       if ([...setNumbers][i] === getNumbers[i]) {
         document.getElementById(getNumbers[i]).style.backgroundColor = "green";
         if ([...setNumbers].length === getNumbers.length) {
-          updateLevel(setGetNumbers, setSetNumbers, setAfg, afg);
-          setAfg((prevState) => ({ ...prevState, result: result + 1 }));
-          setAfg((prevState) => ({ ...prevState, isTrue: true }));
+          updateLevel(setGetNumbers, setSetNumbers, setResults, results);
+          setResults((prevState) => ({ ...prevState, result: result + 1 }));
+          setResults((prevState) => ({ ...prevState, isTrue: true }));
         }
       } else {
         document.getElementById(getNumbers[i]).style.backgroundColor = "red";
-        updateLevel(setGetNumbers, setSetNumbers, setAfg, afg);
-        setAfg((prevState) => ({ ...prevState, isTrue: false }));
+        updateLevel(setGetNumbers, setSetNumbers, setResults, results);
+        setResults((prevState) => ({ ...prevState, isTrue: false }));
         break;
       }
     }
@@ -50,10 +50,10 @@ export default function Game({setIsVisible}) {
 
   useEffect(() => {
     setTimeout(() => {
-      setAfg((prevState) => ({ ...prevState, isTrue: null }));
+      setResults((prevState) => ({ ...prevState, isTrue: null }));
       updateBoxColors("div");
     }, 500);
-    showCurrentBox(setNumbers, setAfg);
+    showCurrentBox(setNumbers, setResults);
   }, [count, level]);
 
   return (
